@@ -1,6 +1,5 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/pushparaj.motamari/.oh-my-zsh
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -50,10 +49,10 @@ ZSH_THEME="pygmalion"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man colorize github jira vagrant virtualenv pip python brew osx zsh-syntax-highlighting)
-
+plugins=(git colored-man colorize github  vagrant virtualenv pip python brew osx zsh-syntax-highlighting safe-paste jira history lwd)
+JIRA_DEFAULT_ACTION=dashboard
 # User configuration
-export PATH="usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+PATH="/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin":$MZ_HOME/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -86,10 +85,23 @@ source $ZSH/oh-my-zsh.sh
 alias m="mzsh "
 alias mstat="mzsh status"
 alias mrun="mzsh startup "
+alias vi ="/usr/local/bin/vi"
+alias vim ="/usr/local/bin/vim"
 dps (){
 jps | grep -e "PicoStart" -e "CodeServerMain"|cut -f 1 -d ' ' | xargs  -I % ps -o pid=,command=, % | grep -o  -e "^[0-9]* "  -e "pico.configname=[^ ]* " | xargs -n 2 -I % echo %
 #set val = `jps | grep -e "PicoStart" -e "CodeServerMain"|cut -f 1 -d ' ' | xargs  -I % ps -o pid=,command=, % | grep -o  -e "^[1-9]* "  -e "pico.configname=[^ ]* " `
 #echo $val
+}
+dinit(){
+cd mediationzone
+./env.sh
+}
+dclean(){
+currentDirectory=`pwd`
+cd $MZ_HOME
+rm -rf data tmp pico-cache storage
+mkdir tmp
+cd $currentDirectory
 }
 #env.sh
 . ~/.zsh_config/env.sh
@@ -145,7 +157,12 @@ else
 fi
 #export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home"
 export GOPATH=~/Desktop/Development/Go
-export PATH=$JAVA_HOME/bin:/usr/local/opt/go/libexec/bin:$GOPATH/bin:$PATH
+PATH=$JAVA_HOME/bin:/usr/local/opt/go/libexec/bin:$GOPATH/bin:$PATH
 
 export DEFAULT_USER="pushparaj"
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+
+##Exporting path is final statement.Whatever you want to add to the path should be done before this.
+export PATH
+export LIBNDBPATH="/Users/pushparaj.motamari/Desktop/ubuntu/github/mysql-cluster-gpl-7.4.11-osx10.11-x86_64/lib"
+export DYLD_LIBRARY_PATH="/usr/lib;/Users/pushparaj.motamari/Desktop/ubuntu/github/mysql-cluster-gpl-7.4.11-osx10.11-x86_64/lib"
